@@ -20,10 +20,9 @@ namespace HackerNewsAPI.Services
 
         public async Task<List<int>> GetBestStoriesIdsAsync()
         {
-            // Usar cache para almacenar los IDs de las mejores historias
             return await _cache.GetOrCreateAsync("BestStoriesIds", async entry =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);  // Cache por 5 minutos
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);
                 var response = await client.GetStringAsync("https://hacker-news.firebaseio.com/v0/beststories.json");
                 return JsonConvert.DeserializeObject<List<int>>(response);
             });
@@ -31,10 +30,9 @@ namespace HackerNewsAPI.Services
 
         public async Task<Story> GetStoryDetailsAsync(int storyId)
         {
-            // Usar cache para almacenar los detalles de la historia
             return await _cache.GetOrCreateAsync($"Story_{storyId}", async entry =>
             {
-                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5);  // Cache por 5 minutos
+                entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5); 
                 var response = await client.GetStringAsync($"https://hacker-news.firebaseio.com/v0/item/{storyId}.json");
                 dynamic storyData = JsonConvert.DeserializeObject(response);
 
