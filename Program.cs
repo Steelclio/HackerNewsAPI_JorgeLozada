@@ -3,9 +3,8 @@ using HackerNewsAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Agregar servicios al contenedor.
 builder.Services.AddControllers();
-builder.Services.AddMemoryCache();  // Agregar el servicio de cache en memoria
+builder.Services.AddMemoryCache();
 builder.Services.AddSingleton<HackerNewsService>();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -13,7 +12,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configurar el pipeline HTTP.
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
